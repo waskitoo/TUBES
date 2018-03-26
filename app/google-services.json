@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "512849864006",
+    "firebase_url": "https://resturant-79b4d.firebaseio.com",
+    "project_id": "resturant-79b4d",
+    "storage_bucket": "resturant-79b4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512849864006:android:30f0966222513d35",
+        "android_client_info": {
+          "package_name": "com.razerblade.restaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512849864006-4b1o3ae32d1ks8d8ftm3b4r5tpfe7518.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.razerblade.restaurant",
+            "certificate_hash": "5198dbfe0a690655389baa660c6a229fe9be1ac4"
+          }
+        },
+        {
+          "client_id": "512849864006-tpn846lugjubc1s9513ok6479vvg4d50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlBwakGrMjkZjWnuUYiXJYwJyLknQCvIk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512849864006-tpn846lugjubc1s9513ok6479vvg4d50.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
