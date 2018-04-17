@@ -39,33 +39,42 @@
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
-        android:onClick="gogogo"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="11dp"
+        android:text="Login"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSignUp"
+        app:layout_constraintStart_toStartOf="@+id/googlebtn"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewLanjut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="272dp"
         android:layout_marginStart="15dp"
-        android:onClick="gogogo"
         android:text="Lanjut Pesan"
-        app:layout_constraintBottom_toTopOf="@+id/googlebtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/googlebtn"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/googlebtn" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googlebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="276dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLanjut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></com.google.android.gms.common.SignInButton>
+        app:layout_constraintTop_toBottomOf="@+id/textViewSignUp"></com.google.android.gms.common.SignInButton>
+
+    <TextView
+        android:id="@+id/textViewSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:layout_marginStart="33dp"
+        android:text="SignUp"
+        app:layout_constraintBottom_toTopOf="@+id/googlebtn"
+        app:layout_constraintStart_toStartOf="@+id/googlebtn"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 </android.support.constraint.ConstraintLayout>
