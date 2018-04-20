@@ -192,6 +192,7 @@ public class Login extends AppCompatActivity {
           if(firebaseAuth.getCurrentUser() != null){
               FirebaseUser curUser = FirebaseC.mAuth.getCurrentUser(); //ambil informasi user yang login
               FirebaseC.currentUser = curUser;
+              startActivity(new Intent(Login.this, MainActivity.class)); //panggil activity main
               Toast.makeText(Login.this,mAuth.getCurrentUser().getUid(),Toast.LENGTH_LONG).show();
               Log.d("user_dengan",mAuth.getCurrentUser().getUid());
           }else {

@@ -1,9 +1,9 @@
 package com.razerblade.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,13 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.razerblade.restaurant.admin.Input;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //NavigationView navigationView =null;
+   // Toolbar toolbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (FirebaseC.currentUser == null) { //jika belum login
+            startActivity(new Intent(MainActivity.this, Login.class));
+            finish();
+        } else { //jika sudah login
+            //masukkan fragment pada adapter viewpager
+             //mengatur tab pada viewpager
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,14 +84,37 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.makan) {
-            // Handle the camera action
+            Log.d("Pelanggan","Makan");
+           Input fragment = new Input();
+//            FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.container,fragment);
+//            fragmentTransaction.commit();
+           fragment.setArguments(getIntent().getExtras());
+           getSupportFragmentManager().beginTransaction()
+                   .add(R.id.container1,fragment,"Input").commit();
+           getSupportFragmentManager().popBackStack();
         } else if (id == R.id.minum) {
+            Log.d("Pelanggan","Minum");
 
         } else if (id == R.id.bayar) {
+            Log.d("Pelanggan","Bayar");
 
         } else if (id == R.id.help) {
+            Log.d("Pelanggan","Help");
 
         } else if (id == R.id.logout) {
+            FirebaseC.mAuth.signOut();
+            startActivity(new Intent(MainActivity.this, Login.class));
+
+        } else if (id == R.id.inputMakan) {
+            Log.d("Admin","inputMakan");
+
+        } else if (id == R.id.inputMinum) {
+            Log.d("Admin","Minum");
+
+        } else if (id == R.id.printBill) {
+            Log.d("Kasir","Print Bill");
 
         }
 
