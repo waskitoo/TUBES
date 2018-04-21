@@ -1,12 +1,15 @@
 package com.razerblade.restaurant.admin;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -23,8 +26,15 @@ import android.widget.Toast;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.razerblade.restaurant.FirebaseC;
+import com.razerblade.restaurant.Login;
 import com.razerblade.restaurant.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
@@ -38,6 +48,9 @@ public class Input extends Fragment {
     private ImageView imgPhoto;
     private TextInputEditText mNama,mDeskripsi;
     private boolean isPicChange = false;
+    private ProgressDialog pbDialog;
+    private StorageReference refPhoto;
+    private Uri photoUrl;
     public Input() {
         // Required empty public constructor
     }
@@ -47,6 +60,7 @@ public class Input extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmenView = inflater.inflate(R.layout.fragment_input, container, false);
+        pbDialog = new ProgressDialog(getContext());
         mspinnerJenis=(Spinner)fragmenView.findViewById(R.id.spinnerJenis);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.jenis, android.R.layout.simple_spinner_item);
@@ -76,6 +90,11 @@ public class Input extends Fragment {
                     Toast.makeText(getContext(), "Choose The Photo!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                pbDialog.setMessage("Uploading..");
+                pbDialog.setIndeterminate(true);
+                pbDialog.show();
+                uploadData();
+
             }
         });
 
@@ -96,6 +115,46 @@ public class Input extends Fragment {
                 .enableLog(false) // disabling log
                 .start(); // start image picker activity with request code
     }
+    private void uploadData(){
+        refPhoto = FirebaseC.storageRef.child("gambar/" + System.currentTimeMillis() + ".jpg");
+        final StorageReference photoImagesRef = FirebaseC.storageRef.child("gambar/" + System.currentTimeMillis() + ".jpg");
+        refPhoto.getName().equals(photoImagesRef.getName());
+        refPhoto.getPath().equals(photoImagesRef.getPath());
+        imgPhoto.setDrawingCacheEnabled(true);
+        imgPhoto.buildDrawingCache();
+        Bitmap bitmap = imgPhoto.getDrawingCache(); //convert imageview ke bitmap
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos); //convert bitmap ke bytearray
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = refPhoto.putBytes(data); //upload image yang sudah dalam bentuk bytearray ke firebase storage
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                photoUrl = taskSnapshot.getDownloadUrl();
+                String key = FirebaseC.refPhoto.push().getKey();
+                FirebaseC.refPhoto.child(key).setValue(new MAdminInput(
+                        key,
+                        photoUrl.toString(),
+                        mNama.getText().toString(),
+                        mDeskripsi.getText().toString(),
+                        mspinnerJenis.getSelectedItem().toString()
+                        ));
+                pbDialog.dismiss();
+                Toast.makeText(getContext(), "Uploaded!", Toast.LENGTH_SHORT).show();
+                refreshq();
+//                Intent intent = getActivity().getIntent();
+//                getActivity().finish();
+//                startActivity(intent);
+            }
+        });
+
+
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data)) { // jika ada data dipilih
@@ -107,8 +166,12 @@ public class Input extends Fragment {
                 isPicChange = true; // ubah state menjadi true untuk menandakan gambar telah dipilih
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void refreshq(){
+        getFragmentManager().beginTransaction().detach(Input.this).attach(Input.this).commit();
+        mNama.setText(null);
+        mDeskripsi.setText(null);
     }
 
 }
