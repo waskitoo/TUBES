@@ -46,11 +46,12 @@ public class Input extends Fragment {
     private FloatingActionButton mPostButton;
     private Button mPhotoButton;
     private ImageView imgPhoto;
-    private TextInputEditText mNama,mDeskripsi;
+    private TextInputEditText mNama,mDeskripsi,mHarga;
     private boolean isPicChange = false;
     private ProgressDialog pbDialog;
     private StorageReference refPhoto;
     private Uri photoUrl;
+
     public Input() {
         // Required empty public constructor
     }
@@ -69,6 +70,7 @@ public class Input extends Fragment {
         imgPhoto = fragmenView.findViewById(R.id.imgPhoto);
         mNama = fragmenView.findViewById(R.id.editTextNama);
         mDeskripsi = fragmenView.findViewById(R.id.editTextDeskripsi);
+        mHarga = fragmenView.findViewById(R.id.editTextHarga);
         mPhotoButton = fragmenView.findViewById(R.id.btnChoose);
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +143,7 @@ public class Input extends Fragment {
                         key,
                         photoUrl.toString(),
                         mNama.getText().toString(),
+                        Integer.valueOf(mHarga.getText().toString()),
                         mDeskripsi.getText().toString(),
                         mspinnerJenis.getSelectedItem().toString()
                         ));
@@ -172,6 +175,7 @@ public class Input extends Fragment {
         getFragmentManager().beginTransaction().detach(Input.this).attach(Input.this).commit();
         mNama.setText(null);
         mDeskripsi.setText(null);
+        mHarga.setText(null);
     }
 
 }

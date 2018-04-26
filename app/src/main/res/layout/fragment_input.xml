@@ -44,12 +44,19 @@
                 android:layout_gravity="center"
                 android:hint="Deskripsi"
                 android:paddingTop="20dp" />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextHarga"
+                android:inputType="number"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Harga"
+                android:paddingTop="20dp" />
             <Spinner
                 android:id="@+id/spinnerJenis"
                 android:layout_width="500dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="--Pilih--"
                 android:paddingTop="30dp"
                 android:paddingBottom="20dp">
 

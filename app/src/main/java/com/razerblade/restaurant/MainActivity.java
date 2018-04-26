@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.razerblade.restaurant.admin.Input;
+import com.razerblade.restaurant.pelanggan.MenuTampil;
 
 
 public class MainActivity extends AppCompatActivity
@@ -85,17 +86,24 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.makan) {
             Log.d("Pelanggan","Makan");
-           Input fragment = new Input();
-//            FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.container,fragment);
-//            fragmentTransaction.commit();
-           fragment.setArguments(getIntent().getExtras());
-           getSupportFragmentManager().beginTransaction()
-                   .add(R.id.container1,fragment,"Input").commit();
-           getSupportFragmentManager().popBackStack();
+            MenuTampil fragment = new MenuTampil();
+            Bundle bundle = new Bundle();
+            bundle.putString("jenis","makanan");
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container1,fragment,"Input").commit();
+            getSupportFragmentManager().popBackStack();
+
         } else if (id == R.id.minum) {
             Log.d("Pelanggan","Minum");
+            MenuTampil fragment = new MenuTampil();
+            Bundle bundle = new Bundle();
+            bundle.putString("jenis","minuman");
+            fragment.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container1,fragment,"Input").commit();
+            getSupportFragmentManager().popBackStack();
 
         } else if (id == R.id.bayar) {
             Log.d("Pelanggan","Bayar");
@@ -109,6 +117,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.inputMakan) {
             Log.d("Admin","inputMakan");
+            Input fragment = new Input();
+
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container1,fragment,"Input").commit();
+            getSupportFragmentManager().popBackStack();
 
         } else if (id == R.id.inputMinum) {
             Log.d("Admin","Minum");
@@ -117,7 +131,6 @@ public class MainActivity extends AppCompatActivity
             Log.d("Kasir","Print Bill");
 
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

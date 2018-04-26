@@ -10,13 +10,24 @@ public class MAdminInput implements Serializable {
     public String key;
     public String image_url;
     public String nama;
+    public int harga;
+    public MAdminInput(){}
 
-    public MAdminInput(String key, String image_url, String nama, String deskripsi, String jenis) {
+    public MAdminInput(String key, String image_url, String nama, int harga, String deskripsi, String jenis) {
         this.key = key;
         this.image_url = image_url;
         this.nama = nama;
+        this.harga = harga;
         this.deskripsi = deskripsi;
         this.jenis = jenis;
+    }
+
+    public int getHarga() {
+        return harga;
+    }
+
+    public void setHarga(int harga) {
+        this.harga = harga;
     }
 
     public String deskripsi;
