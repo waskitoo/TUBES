@@ -1,12 +1,16 @@
 package com.razerblade.restaurant.pelanggan;
 
+import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +18,8 @@ import com.razerblade.restaurant.R;
 import com.razerblade.restaurant.admin.MAdminInput;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 /**
@@ -27,13 +33,14 @@ public class MenuTampilAdapter extends RecyclerView.Adapter<MenuTampilAdapter.My
         public TextView tvnama,tvharga;
         public ImageView imgPhoto;
         public CardView cvPhoto;
+        public Button buttonAddChart;
         public MyViewHolder(View view) {
             super(view);
             imgPhoto = (ImageView)view.findViewById(R.id.imgPhoto);
             tvnama = (TextView)view.findViewById(R.id.TextviewRowtTitle);
             tvharga = (TextView)view.findViewById(R.id.TextviewRowtHarga);
             cvPhoto = (CardView)view.findViewById(R.id.cvPhoto);
-
+            buttonAddChart = (Button)view.findViewById(R.id.buttonAddChart);
         }
     }
     public MenuTampilAdapter(List<MAdminInput> photoList, Context context){
@@ -51,12 +58,32 @@ public class MenuTampilAdapter extends RecyclerView.Adapter<MenuTampilAdapter.My
     }
 
     @Override
-    public void onBindViewHolder( MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         final MAdminInput photo = photoList.get(position);
         holder.tvnama.setText(photo.getNama());
-        holder.tvharga.setText("RP. "+photo.getHarga());
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setGroupingSeparator('.');
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        holder.tvharga.setText(kursIndonesia.format(photo.getHarga()));
         Picasso.get().load(photo.getImage_url()).into(holder.imgPhoto);
+        holder.cvPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ia = new Intent(context,DetailMenu.class);
+                ia.putExtra("dataMenu",photo);
+                context.startActivity(ia);
+            }
+        });
+        holder.buttonAddChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //tombol DI click
+            }
+        });
 
+        //View mView = View.inflate(R.layout.detail_menu,null);
     }
 
     @Override

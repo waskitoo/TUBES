@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
     private final String TAG="LOGIN";
     private GoogleSignInClient mGoogleSignInClient;
     private GoogleApiClient mGoogleApiClient;
-    private FirebaseAuth mAuth;
+
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ProgressDialog pbDialog;
 
@@ -67,7 +67,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this,"Error",Toast.LENGTH_LONG).show();
                     }
                 }).addApi(Auth.GOOGLE_SIGN_IN_API,gso).build();
-        mAuth = FirebaseAuth.getInstance();
+        mGoogleApiClient.connect();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         cekLogin();
         mGoogleBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            mAuth.signOut();
+            FirebaseC.mAuth.signOut();
             mGoogleApiClient.clearDefaultAccountAndReconnect();
             }
         });
@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
     private void loginProcess(){
         final String email = mUsernmae.getText().toString();
         final String password = mPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email,password)
+        FirebaseC.mAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -133,7 +133,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseC.mAuth.addAuthStateListener(mAuthListener);
     }
 
     private void signIn() {
@@ -164,14 +164,14 @@ public class Login extends AppCompatActivity {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
+        FirebaseC.mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = FirebaseC.mAuth.getCurrentUser();
                             FirebaseUser curUser = FirebaseC.mAuth.getCurrentUser(); //ambil informasi user yang login
                             FirebaseC.currentUser = curUser;
                             //updateUI(user);
@@ -193,8 +193,8 @@ public class Login extends AppCompatActivity {
               FirebaseUser curUser = FirebaseC.mAuth.getCurrentUser(); //ambil informasi user yang login
               FirebaseC.currentUser = curUser;
               startActivity(new Intent(Login.this, MainActivity.class)); //panggil activity main
-              Toast.makeText(Login.this,mAuth.getCurrentUser().getUid(),Toast.LENGTH_LONG).show();
-              Log.d("user_dengan",mAuth.getCurrentUser().getUid());
+              Toast.makeText(Login.this,FirebaseC.mAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
+              Log.d("user_dengan",FirebaseC.mAuth.getCurrentUser().getUid());
           }else {
               Log.d("user_dengan","kagak Login");
           }

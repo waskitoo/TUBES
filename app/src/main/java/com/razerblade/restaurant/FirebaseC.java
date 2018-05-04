@@ -18,6 +18,9 @@ public class FirebaseC {
     //Firebase Storage
     public static FirebaseStorage storage = FirebaseStorage.getInstance();
     public static StorageReference storageRef = storage.getReference();
+   //query
     public final static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public final static DatabaseReference refPhoto = database.getReference("makanan");
+    public final static DatabaseReference refOrder = database.getReference("order");
+    public final static DatabaseReference refBayar = database.getReference("bayar");
 }

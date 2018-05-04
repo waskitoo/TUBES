@@ -51,7 +51,9 @@ public class MenuTampil extends Fragment {
         return fragmenView;
     }
     private void loadMenu(){
+
         if(jenis.equals("makanan")){
+
             FirebaseC.refPhoto.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

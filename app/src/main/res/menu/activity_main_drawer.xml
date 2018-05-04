@@ -11,11 +11,20 @@
                 <item
                     android:id="@+id/inputMakan"
                     android:icon="@drawable/ic_restaurant"
-                    android:title="Input Maikan" />
+                    android:title="Input Menu" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/chefMenu">
+
+        <item android:id="@+id/itemCheff"
+            android:title="Admin">
+            <menu>
                 <item
-                    android:id="@+id/inputMinum"
-                    android:icon="@drawable/ic_minum"
-                    android:title="Input Minum" />
+                    android:id="@+id/orderList"
+                    android:icon="@drawable/ic_restaurant"
+                    android:title="Input Menu" />
             </menu>
         </item>
     </group>

@@ -1,8 +1,12 @@
 package com.razerblade.restaurant;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,8 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.razerblade.restaurant.admin.Input;
+import com.razerblade.restaurant.cheff.ListOrder;
 import com.razerblade.restaurant.pelanggan.MenuTampil;
 
 
@@ -21,7 +29,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //NavigationView navigationView =null;
    // Toolbar toolbar = null;
-
+    private EditText mMeja;
+    private TextView mNoMeja,mEmailPelanggan,mNamaPelanggan;
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +43,16 @@ public class MainActivity extends AppCompatActivity
             //masukkan fragment pada adapter viewpager
              //mengatur tab pada viewpager
         }
+        navigationView =(NavigationView)findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        SharedPreferences sharedPreferences = getSharedPreferences("Preference", Context.MODE_PRIVATE);
+        mNoMeja = (TextView)header.findViewById(R.id.nomorMeja);
+        mNoMeja.setText(sharedPreferences.getString("meja",""));
+        mEmailPelanggan = (TextView)header.findViewById(R.id.emailPelanggan);
+        mEmailPelanggan.setText(FirebaseC.mAuth.getCurrentUser().getEmail());
+        mNamaPelanggan =(TextView)header.findViewById(R.id.NamaPelanggan);
+        mNamaPelanggan.setText(FirebaseC.mAuth.getCurrentUser().getDisplayName());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,7 +92,24 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Log.d("Setting","Meja");
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+            View mview = getLayoutInflater().inflate(R.layout.dialog_meja,null);
+            mMeja = (EditText)mview.findViewById(R.id.mejaId);
+            mBuilder.setView(mview);
+            mBuilder.setTitle("Isi Nomor Meja");
+            mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPreferences preferences = getApplicationContext().
+                            getSharedPreferences("Preference",0);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("meja",mMeja.getText().toString());
+                    editor.commit();
+                }
+            });
+            final AlertDialog dialog = mBuilder.create();
+            dialog.show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -124,13 +161,18 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.container1,fragment,"Input").commit();
             getSupportFragmentManager().popBackStack();
 
-        } else if (id == R.id.inputMinum) {
-            Log.d("Admin","Minum");
-
         } else if (id == R.id.printBill) {
             Log.d("Kasir","Print Bill");
 
+        }else if (id == R.id.orderList) {
+            Log.d("Order List","Order List");
+            ListOrder fragment = new ListOrder();
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.container1,fragment,"Order List").commit();
+            getSupportFragmentManager().popBackStack();
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

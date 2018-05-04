@@ -11,6 +11,8 @@ public class MAdminInput implements Serializable {
     public String image_url;
     public String nama;
     public int harga;
+    public String deskripsi;
+    public String jenis;
     public MAdminInput(){}
 
     public MAdminInput(String key, String image_url, String nama, int harga, String deskripsi, String jenis) {
@@ -29,9 +31,6 @@ public class MAdminInput implements Serializable {
     public void setHarga(int harga) {
         this.harga = harga;
     }
-
-    public String deskripsi;
-    public String jenis;
 
     public String getKey() {return key;}
 
