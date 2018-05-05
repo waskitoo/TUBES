@@ -35,7 +35,8 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".pelanggan.DetailMenu" />
-        <activity android:name=".cheff.ListOrderDetail"></activity>
+        <activity android:name=".cheff.ListOrderDetail" />
+        <activity android:name=".kasir.KasirDetail"></activity>
     </application>
 
 </manifest>

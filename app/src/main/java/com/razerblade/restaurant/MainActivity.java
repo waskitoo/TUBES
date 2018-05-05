@@ -22,7 +22,10 @@ import android.widget.TextView;
 
 import com.razerblade.restaurant.admin.Input;
 import com.razerblade.restaurant.cheff.ListOrder;
+import com.razerblade.restaurant.kasir.Kasir;
 import com.razerblade.restaurant.pelanggan.MenuTampil;
+
+import java.security.acl.Group;
 
 
 public class MainActivity extends AppCompatActivity
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        filterUser();
+
         if (FirebaseC.currentUser == null) { //jika belum login
             startActivity(new Intent(MainActivity.this, Login.class));
             finish();
@@ -142,9 +147,6 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.container1,fragment,"Input").commit();
             getSupportFragmentManager().popBackStack();
 
-        } else if (id == R.id.bayar) {
-            Log.d("Pelanggan","Bayar");
-
         } else if (id == R.id.help) {
             Log.d("Pelanggan","Help");
 
@@ -163,6 +165,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.printBill) {
             Log.d("Kasir","Print Bill");
+            Kasir fragment = new Kasir();
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container1,fragment,"Kasir").commit();
+            getSupportFragmentManager().popBackStack();
 
         }else if (id == R.id.orderList) {
             Log.d("Order List","Order List");
@@ -178,4 +185,41 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item1 = menu.findItem(R.id.action_settings);
+        if(FirebaseC.mAuth.getCurrentUser().getEmail().equals("admin@gmail.com")){
+            item1.setEnabled(true);
+        }else {
+            item1.setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+    public void filterUser(){
+        NavigationView navView = (NavigationView)findViewById(R.id.nav_view);
+        Menu menu = navView.getMenu();
+        MenuItem input = menu.findItem(R.id.inputMakan);
+        MenuItem order = menu.findItem(R.id.orderList);
+        MenuItem printBill = menu.findItem(R.id.printBill);
+        MenuItem makan = menu.findItem(R.id.makan);
+        MenuItem minum = menu.findItem(R.id.minum);
+        MenuItem help = menu.findItem(R.id.help);
+        if(FirebaseC.mAuth.getCurrentUser().getEmail().equals("admin@gmail.com")){
+            makan.setVisible(false);
+            minum.setVisible(false);
+            help.setVisible(false);
+        }else{
+            input.setVisible(false);
+            order.setVisible(false);
+            printBill.setVisible(false);
+
+
+        }
+
+
+
+    }
+
 }
+

@@ -2,66 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group android:checkableBehavior="single"
-        android:id="@+id/adminMenu">
+    <item
+        android:id="@+id/inputMakan"
+        android:icon="@drawable/ic_restaurant"
+        android:title="Input Menu" />
+    <item
+        android:id="@+id/orderList"
+        android:icon="@drawable/ic_restaurant"
+        android:title="List Order" />
 
-        <item android:id="@+id/itemAdmin"
-            android:title="Admin">
-            <menu>
-                <item
-                    android:id="@+id/inputMakan"
-                    android:icon="@drawable/ic_restaurant"
-                    android:title="Input Menu" />
-            </menu>
-        </item>
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/chefMenu">
+    <item
+        android:id="@+id/printBill"
+        android:icon="@drawable/ic_restaurant"
+        android:title="Print Bill" />
 
-        <item android:id="@+id/itemCheff"
-            android:title="Admin">
-            <menu>
-                <item
-                    android:id="@+id/orderList"
-                    android:icon="@drawable/ic_restaurant"
-                    android:title="Input Menu" />
-            </menu>
-        </item>
-    </group>
-    <group android:checkableBehavior="single"
-        android:id="@+id/kasirMenu">
+    <item
+        android:id="@+id/makan"
+        android:icon="@drawable/ic_restaurant"
+        android:title="Pesan Makanan" />
+    <item
+        android:id="@+id/minum"
+        android:icon="@drawable/ic_minum"
+        android:title="Pesan Minum" />
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_help"
+        android:title="Help" />
 
-        <item android:id="@+id/itemKasir"
-            android:title="Kasir">
-            <menu>
-                <item
-                    android:id="@+id/printBill"
-                    android:icon="@drawable/ic_restaurant"
-                    android:title="Print Bill" />
-            </menu>
-        </item>
-    </group>
-
-    <group android:checkableBehavior="single"
-         android:id="@+id/menuPelanggan">
-        <item
-            android:id="@+id/makan"
-            android:icon="@drawable/ic_restaurant"
-            android:title="Pesan Makanan" />
-        <item
-            android:id="@+id/minum"
-            android:icon="@drawable/ic_minum"
-            android:title="Pesan Minum" />
-        <item
-            android:id="@+id/bayar"
-            android:icon="@drawable/ic_attach_money"
-            android:title="Bayar" />
-        <item
-            android:id="@+id/help"
-            android:icon="@drawable/ic_help"
-            android:title="Help" />
-
-    </group>
     <item
         android:id="@+id/logout"
         android:icon="@drawable/ic_logout"

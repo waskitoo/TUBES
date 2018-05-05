@@ -45,14 +45,7 @@
         android:layout_marginBottom="10dp"
         android:text="Login" />
 
-    <TextView
-        android:id="@+id/textViewLanjut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lanjut Pesan"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-       android:layout_gravity="center" />
+
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/googlebtn"
@@ -67,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SignUp"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
        android:layout_gravity="center" />

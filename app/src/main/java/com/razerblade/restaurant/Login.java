@@ -54,7 +54,6 @@ public class Login extends AppCompatActivity {
         mUsernmae = (EditText)findViewById(R.id.editTextUsername);
         mPassword =(EditText)findViewById(R.id.editTextPassword);
         mSingUp =(TextView)findViewById(R.id.textViewSignUp);
-        mLanjut = (TextView)findViewById(R.id.textViewLanjut);
         mGoogleBtn =(SignInButton)findViewById(R.id.googlebtn);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
