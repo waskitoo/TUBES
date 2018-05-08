@@ -5,14 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.razerblade.restaurant.pelanggan.DetailMenu">
+
     <ImageView
         android:id="@+id/imageViewDetail"
         android:layout_width="177dp"
         android:layout_height="103dp"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/logos" />
-    <LinearLayout
+    <RelativeLayout
         android:layout_below="@+id/imageViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -102,5 +110,7 @@
 
         </RelativeLayout>
     </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -3,17 +3,23 @@ package com.razerblade.restaurant.pelanggan;
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.razerblade.restaurant.FirebaseC;
 import com.razerblade.restaurant.R;
 import com.razerblade.restaurant.admin.MAdminInput;
 import com.squareup.picasso.Picasso;
@@ -40,7 +46,6 @@ public class MenuTampilAdapter extends RecyclerView.Adapter<MenuTampilAdapter.My
             tvnama = (TextView)view.findViewById(R.id.TextviewRowtTitle);
             tvharga = (TextView)view.findViewById(R.id.TextviewRowtHarga);
             cvPhoto = (CardView)view.findViewById(R.id.cvPhoto);
-            buttonAddChart = (Button)view.findViewById(R.id.buttonAddChart);
         }
     }
     public MenuTampilAdapter(List<MAdminInput> photoList, Context context){
@@ -76,12 +81,6 @@ public class MenuTampilAdapter extends RecyclerView.Adapter<MenuTampilAdapter.My
                 context.startActivity(ia);
             }
         });
-        holder.buttonAddChart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //tombol DI click
-            }
-        });
 
         //View mView = View.inflate(R.layout.detail_menu,null);
     }
@@ -90,6 +89,4 @@ public class MenuTampilAdapter extends RecyclerView.Adapter<MenuTampilAdapter.My
     public int getItemCount() {
         return photoList.size();
     }
-
-
 }

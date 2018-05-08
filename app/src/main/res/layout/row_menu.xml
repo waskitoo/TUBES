@@ -37,6 +37,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:paddingBottom="35dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -56,27 +57,7 @@
                             android:text="Harga" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <!--<TextView-->
-                        <!--android:id="@+id/tvTitle"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Title"-->
-                        <!--android:textStyle="bold"/>-->
 
-                        <Button
-                            android:id="@+id/buttonAddChart"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="left"
-                            android:text="Add to chart"
-                            android:textAllCaps="false"
-                            android:textSize="10sp"
-                            android:theme="@color/colorAccent" />
-                    </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>

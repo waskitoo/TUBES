@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -19,13 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.razerblade.restaurant.admin.Input;
 import com.razerblade.restaurant.cheff.ListOrder;
 import com.razerblade.restaurant.kasir.Kasir;
+import com.razerblade.restaurant.pelanggan.AboutRes;
 import com.razerblade.restaurant.pelanggan.MenuTampil;
-
-import java.security.acl.Group;
 
 
 public class MainActivity extends AppCompatActivity
@@ -57,7 +54,12 @@ public class MainActivity extends AppCompatActivity
         mEmailPelanggan.setText(FirebaseC.mAuth.getCurrentUser().getEmail());
         mNamaPelanggan =(TextView)header.findViewById(R.id.NamaPelanggan);
         mNamaPelanggan.setText(FirebaseC.mAuth.getCurrentUser().getDisplayName());
-
+        AboutRes fragment = new AboutRes();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container1,fragment,"help").commit();
+        getSupportFragmentManager().popBackStack();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -149,6 +151,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.help) {
             Log.d("Pelanggan","Help");
+            AboutRes fragment = new AboutRes();
+            Bundle bundle = new Bundle();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container1,fragment,"help").commit();
+            getSupportFragmentManager().popBackStack();
 
         } else if (id == R.id.logout) {
             FirebaseC.mAuth.signOut();
@@ -178,6 +186,12 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.container1,fragment,"Order List").commit();
             getSupportFragmentManager().popBackStack();
+        }else if (id == R.id.share){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi, This Restaurant is Very Good Check This Location https://goo.gl/maps/bSGZKVHiNCE2");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         }
 
 
@@ -204,11 +218,13 @@ public class MainActivity extends AppCompatActivity
         MenuItem printBill = menu.findItem(R.id.printBill);
         MenuItem makan = menu.findItem(R.id.makan);
         MenuItem minum = menu.findItem(R.id.minum);
-        MenuItem help = menu.findItem(R.id.help);
+        MenuItem help = menu.findItem(R.id.share);
+        MenuItem share = menu.findItem(R.id.help);
         if(FirebaseC.mAuth.getCurrentUser().getEmail().equals("admin@gmail.com")){
             makan.setVisible(false);
             minum.setVisible(false);
             help.setVisible(false);
+            share.setVisible(false);
         }else{
             input.setVisible(false);
             order.setVisible(false);

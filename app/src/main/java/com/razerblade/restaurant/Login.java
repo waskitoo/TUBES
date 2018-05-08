@@ -136,7 +136,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void signIn() {
-        mGoogleApiClient.connect();
             @SuppressLint("RestrictedApi") Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
@@ -193,9 +192,7 @@ public class Login extends AppCompatActivity {
               FirebaseC.currentUser = curUser;
               startActivity(new Intent(Login.this, MainActivity.class)); //panggil activity main
               Toast.makeText(Login.this,FirebaseC.mAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
-              Log.d("user_dengan",FirebaseC.mAuth.getCurrentUser().getUid());
           }else {
-              Log.d("user_dengan","kagak Login");
           }
             }
         };

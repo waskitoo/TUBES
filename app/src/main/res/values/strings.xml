@@ -4,7 +4,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="aboutRes">Holycow! Be Ready to mesmerized by our new style of serving your best food and beveriage experience.
+    So remember, come and feel our touch and Chef Afit will blow your mind!
+    </string>
+    <string name="location">
+    Jl. Sukabirus No.68, sukapura, dayeuhkolot, kota bandung, Jawa Barat 40257 </string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->

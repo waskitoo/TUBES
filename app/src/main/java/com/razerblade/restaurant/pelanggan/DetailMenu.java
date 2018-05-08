@@ -66,7 +66,7 @@ public class DetailMenu extends AppCompatActivity {
         minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (jumlah <= 1){
+                if (jumlah > 1){
                 jumlah --;
                 jumlahTextView.setText(""+jumlah);}
             }
@@ -93,7 +93,6 @@ public class DetailMenu extends AppCompatActivity {
     }
     private void orderMenu(){
         hitung = jumlah*Integer.parseInt(String.valueOf(dataMenu.getHarga()));
-        String key = FirebaseC.refOrder.push().getKey();
         SharedPreferences sPref = getSharedPreferences("Preference", Context.MODE_PRIVATE);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("order").child(FirebaseC.mAuth.getCurrentUser().getEmail().toString().
