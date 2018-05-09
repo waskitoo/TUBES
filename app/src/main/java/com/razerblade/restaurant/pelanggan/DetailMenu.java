@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class DetailMenu extends AppCompatActivity {
         plusButton = (Button)findViewById(R.id.plusButton);
         minusButton = (Button)findViewById(R.id.minusButton);
         mOrderButton = (Button)findViewById(R.id.pesan);
-
+        Log.d("CACAD9",FirebaseC.mAuth.getCurrentUser().getEmail().toString());
         dataMenu = (MAdminInput)getIntent().getSerializableExtra("dataMenu");
 
         mOrderButton.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +98,7 @@ public class DetailMenu extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("order").child(FirebaseC.mAuth.getCurrentUser().getEmail().toString().
                 split("@")[0]);
+
          ref.child(dataMenu.getKey()).
                 setValue(new ConBeli(
                 dataMenu.getNama(),

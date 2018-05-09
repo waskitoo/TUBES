@@ -192,6 +192,7 @@ public class Login extends AppCompatActivity {
               FirebaseC.currentUser = curUser;
               startActivity(new Intent(Login.this, MainActivity.class)); //panggil activity main
               Toast.makeText(Login.this,FirebaseC.mAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
+              finish();
           }else {
           }
             }

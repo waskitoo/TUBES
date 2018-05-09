@@ -82,40 +82,45 @@ public class KasirDetail extends AppCompatActivity {
         btnbayar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-                formatRp.setCurrencySymbol("Rp. ");
-                formatRp.setGroupingSeparator('.');
-                kursIndonesia.setDecimalFormatSymbols(formatRp);
-                int total;
-                total = Integer.parseInt(tunai)-jumlah;
-                tvKembai.setText(""+kursIndonesia.format(total));
-                final String key = getIntent().getStringExtra("Ukey");
-                FirebaseC.refBayar.child(key).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot ds : dataSnapshot.getChildren()){
-                            KasirCons dataKasir = ds.getValue(KasirCons.class);
-                            String keyx = FirebaseC.refHistory.push().getKey();
-                            FirebaseC.refHistory.child(key).child(keyx).setValue(new KasirCons(
-                                    dataKasir.getIdMakanan(),
-                                    dataKasir.getJumlahMakanan(),
-                                    dataKasir.getHarga(),
-                                    dataKasir.getMeja(),
-                                    "Selesai",
-                                    "Selesai"
-                            ));
+                if(!tvTunai.getText().toString().isEmpty()){
+                    final DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                    DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+                    formatRp.setCurrencySymbol("Rp. ");
+                    formatRp.setGroupingSeparator('.');
+                    kursIndonesia.setDecimalFormatSymbols(formatRp);
+                    int total;
+                    total = Integer.parseInt(tunai)-jumlah;
+                    tvKembai.setText(""+kursIndonesia.format(total));
+                    final String key = getIntent().getStringExtra("Ukey");
+                    FirebaseC.refBayar.child(key).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (final DataSnapshot ds : dataSnapshot.getChildren()){
+                                KasirCons dataKasir = ds.getValue(KasirCons.class);
+                                String keyx = FirebaseC.refHistory.push().getKey();
+                                FirebaseC.refHistory.child(key).child(keyx).setValue(new KasirCons(
+                                        dataKasir.getIdMakanan(),
+                                        dataKasir.getJumlahMakanan(),
+                                        dataKasir.getHarga(),
+                                        dataKasir.getMeja(),
+                                        "Selesai",
+                                        "Selesai"
+                                ));
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
-                FirebaseC.refBayar.child(key).removeValue();
+                        }
+                    });
+                    FirebaseC.refBayar.child(key).removeValue();
 
-            }
+                }else {
+                    tvTunai.setError("Required");
+                }
+                }
+
         });
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
